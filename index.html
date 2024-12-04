@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>inicio</li>
+            <li>Equipos</li>
+            <li>usuarios</li>
+        </ul>
+    </nav>
+    <main>
+
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="buscar" oninput="busqueda()">
+            <button id="filter-button" >buscar</button>
+        </div>
+
+        <h1>Datos de Equipos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Placa</th>
+                    <th>Modelo</th>
+                    <th>Ruta</th>
+                    <th>Nombre</th>
+                    <th>Código</th>
+                    <th>Municipio</th>
+                    <th>Barrio</th>
+                    <th>Fecha</th>
+                    <th>Novedad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se insertarán los datos dinámicamente -->
+            </tbody>
+        </table>
+        <div class="table_nav">
+            <button onclick="button_back()">prev</button>
+            <select name="pages" id="pages" onchange="llamarTabla(this.value)">
+            </select>
+            <button onclick="button_next()">sig</button>
+        </div>
+    </main>
+</body>
+
+</html>
+<script src="scripts\tablas.js"></script>
