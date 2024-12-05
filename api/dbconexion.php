@@ -1,9 +1,9 @@
 <?php
-$servername="148.113.168.52";
-$username="tsotecno_tsoadmin";
-$password="Colombia-2024";
+$servername="localhost";
+$username="root";
+$password="mysqldb";
 $port="3306";
-$dbname="tsotecno_tso2024";
+$dbname="login_db";
 // Crear la conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
 

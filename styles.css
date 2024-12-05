@@ -59,10 +59,24 @@ nav ul li:hover{
     box-shadow: 0 4px 8px #00000060;
     width: 300px;
     text-align: center;
-    height: 300px;
+    min-height: 300px;
     margin: auto;
 }
 
+.regiter-container {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3 ;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px #00000060;
+    width: 400px;
+    text-align: center;
+    min-height: 300px;
+    margin: auto;
+}
 .input-group {
     margin-bottom: 15px;
     text-align: left;

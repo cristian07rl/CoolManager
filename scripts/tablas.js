@@ -1,14 +1,41 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const limit = 10;
-    const page = 1;
-    fetch(`https://tsotecnoservicios.com/pruebanew/api/equipos.php?limit=${limit}&page=${page}`)
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.querySelector('table tbody');
-            const select = document.getElementById('pages');
-            tbody.innerHTML = "";
-            data.results.forEach((item) => {
-                const row = `
+document.addEventListener('DOMContentLoaded', async () => {
+
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        // Si no hay token, redirige al login
+        window.location.href = '/login.html';
+        return;
+    }
+
+    // Verificar el token con el servidor
+    try {
+        const response = await fetch('/api/validate_token.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Envía el token en el encabezado
+            }
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            // Token inválido o expirado
+            localStorage.removeItem('authToken'); // Elimina el token almacenado
+            window.location.href = '/login.html'; // Redirige al login
+        }
+        console.log('Usuario autenticado:', result.user.username);
+        // Si el token es válido, muestra el contenido del dashboard
+        const limit = 10;
+        const page = 1;
+        fetch(`http://localhost:3000/api/equipos.php?limit=${limit}&page=${page}`)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector('table tbody');
+                const select = document.getElementById('pages');
+                tbody.innerHTML = "";
+                data.results.forEach((item) => {
+                    const row = `
                     <tr>
                         <td>${item.id}</td>
                         <td>${item.placa}</td>
@@ -22,16 +49,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>${item.novedad}</td>
                     </tr>
                 `;
-                tbody.innerHTML += row;
-                
-            });
-            for (var i = 0; i< data.totalPages; i++){
-                const option = `<option value="${i+1}">${i+1}</option>`
-                select.innerHTML += option;
-            }
-            
-        })
-        .catch(error => console.error('Error al cargar los datos:', error));
+                    tbody.innerHTML += row;
+
+                });
+                for (var i = 0; i < data.totalPages; i++) {
+                    const option = `<option value="${i + 1}">${i + 1}</option>`
+                    select.innerHTML += option;
+                }
+
+            })
+            .catch(error => console.error('Error al cargar los datos:', error));
+    } catch (error) {
+        console.error('Error al verificar el token:', error);
+        //localStorage.removeItem('authToken');
+        //window.location.href = '/login.html';
+    }
+
+
 });
 
 // Seleccionamos el input
@@ -43,7 +77,7 @@ const typingDelay = 500; // Tiempo de espera (en milisegundos)
 
 
 // Escuchar eventos en el input
-function busqueda(){
+function busqueda() {
     clearTimeout(typingTimer); // Reiniciar el temporizador si el usuario sigue escribiendo
     console.log("funcionbusqueda")
     typingTimer = setTimeout(() => {
@@ -56,13 +90,13 @@ function busqueda(){
 }
 
 
-function llamarTabla(page ,searchinput) {
+function llamarTabla(page, searchinput) {
     let query = ''
-    if (searchinput){
-        query = `https://tsotecnoservicios.com/pruebanew/api/equipos.php?q=${searchinput}&limit=10&page=${page}`
+    if (searchinput) {
+        query = `http://localhost:3000/api/equipos.php?q=${searchinput}&limit=10&page=${page}`
     }
-    else{
-        query = `https://tsotecnoservicios.com/pruebanew/api/equipos.php?limit=10&page=${page}`
+    else {
+        query = `http://localhost:3000/api/equipos.php?limit=10&page=${page}`
     }
     fetch(query)
         .then(response => response.json())
@@ -88,11 +122,11 @@ function llamarTabla(page ,searchinput) {
             });
 
             const elemetpage = document.getElementById('pages');
-            
+
             console.log(data.currentPage)
             elemetpage.innerHTML = " ";
-            for (var i = 0; i< data.totalPages; i++){
-                const option = `<option value="${i+1}">${i+1}</option>`
+            for (var i = 0; i < data.totalPages; i++) {
+                const option = `<option value="${i + 1}">${i + 1}</option>`
                 elemetpage.innerHTML += option;
             }
             elemetpage.value = data.currentPage;
@@ -100,18 +134,18 @@ function llamarTabla(page ,searchinput) {
         .catch(error => console.error('Error al cargar los datos:', error));
 }
 
-function button_next(){
+function button_next() {
     const select = document.getElementById('pages');
-    const page = parseInt(select.value) + 1; 
+    const page = parseInt(select.value) + 1;
     llamarTabla(page, searchInput.value)
     select.value = page;
-    
+
 }
 
-function button_back(){
+function button_back() {
     const select = document.getElementById('pages');
-    const page = parseInt(select.value) - 1; 
+    const page = parseInt(select.value) - 1;
     llamarTabla(page, searchInput.value)
     select.value = page;
-    
+
 }
