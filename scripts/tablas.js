@@ -92,6 +92,7 @@ function busqueda() {
 
 function llamarTabla(page, searchinput) {
     let query = ''
+    if (page == isNaN) page = 1;
     if (searchinput) {
         query = `http://localhost:3000/api/equipos.php?q=${searchinput}&limit=10&page=${page}`
     }
