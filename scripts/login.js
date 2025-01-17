@@ -26,7 +26,7 @@ const login = async () => {
             // Almacena el token en localStorage o cookies
             console.log(result.token)
             localStorage.setItem('authToken', result.token);
-            window.location.href = '/dashboard.html';
+            window.location.href = '/dashboard/index.html';
         } else {
             document.getElementById('message').textContent = result.message;
         }

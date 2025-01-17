@@ -12,7 +12,13 @@ body {
     grid-template-columns: 200px minmax(600px,auto);
     margin: 0;
 }
-
+a {
+    text-decoration: none; /* Elimina el subrayado */
+    color: inherit; /* Hereda el color del texto del elemento padre */
+    background: none; /* Elimina cualquier fondo */
+    border: none; /* Elimina cualquier borde */
+    outline: none; /* Elimina el contorno al hacer clic */
+}
 main{
     display: flex;
     flex-direction: column;
@@ -108,13 +114,18 @@ button {
     color: white;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
+    
 }
 
 button:hover {
     background-color: #0056b3;
+    cursor: pointer;
 }
 
+button:disabled {
+    background-color: #c3c3c3;
+
+}
 select{
     padding: 8px;
 }
@@ -156,6 +167,11 @@ tr:hover {
     
 }
 
+.botones{
+    display: flex;
+    justify-content: flex-end;
+ 
+}
 @media (max-width: 800px) {
     body {
         grid-template-columns: 1fr;

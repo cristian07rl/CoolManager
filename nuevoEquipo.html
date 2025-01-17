@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts/register.js"></script>
+    <title>Registro</title>
+</head>
+
+<body>
+    <div class="regiter-container">
+        <h1>Registro</h1>
+        <form id="register-form">
+            <div class="input-group">
+                <label for="placa">Placa:</label>
+                <input type="text" id="placa" name="placa" required>
+            </div>
+
+            <div class="input-group">
+                <label for="modelo">Modelo:</label>
+                <input type="text" id="modelo" name="modelo" required>
+            </div>
+
+            <div class="input-group">
+                <label for="cliente">Codigo de cliente:</label>
+                <input type="text" id="cliente" name="cliente" required>
+            </div>
+
+    
+            <button type="button" onclick="nuevoequipo()">Registrar</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+</body>
+
+</html>

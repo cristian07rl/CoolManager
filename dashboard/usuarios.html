@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script type="module" src="/scripts/token.js">authToken()</script>
+    <script src="/scripts/tablas.js"></script>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <a href="index.html"><li>inicio</li></a>
+            <a href="equipos.html"><li>Equipos</li></a>
+            <a href="clientes.html"><li>Clientes</li></a>
+            <a href="usuarios.html"><li>usuarios</li></a>
+        </ul>
+    </nav>
+    <main>
+
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="buscar" oninput="busqueda('usuarios')">
+        </div>
+
+        <h1>Datos de usuarios</h1>
+        <div class="botones">
+            <a href="/registro.html"><button>Nuevo usuario</button></a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>N. de usuario</th>           
+                    <th>email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se insertarán los datos dinámicamente -->
+            </tbody>
+        </table>
+        <div class="table_nav">
+            <button onclick="button_back('usuarios')" id="back">prev</button>
+            <select name="pages" id="pages" onchange="llamarTabla('usuarios',this.value)">
+            </select>
+            <button onclick="button_next('usuarios')" id="next">sig</button>
+        </div>
+    </main>
+</body>
+
+</html>
+<script>llamarTabla("usuarios")</script>

@@ -13,10 +13,9 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
 
     // Consulta SQL para buscar en la tabla equipos, usando LIKE para búsqueda parcial
     // Añadimos LIMIT y OFFSET a la consulta de búsqueda
-    $sql = "SELECT * FROM equipos WHERE placa LIKE '%$searchQuery%' 
-            OR modelo LIKE '%$searchQuery%' 
-            OR codigo LIKE '%$searchQuery%'
-            LIMIT ? OFFSET ?";
+    $sql = "SELECT * FROM users WHERE username LIKE '%$searchQuery%' 
+                OR email LIKE '%$searchQuery%'
+                LIMIT ? OFFSET ?";
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $limit, $offset);
@@ -30,9 +29,9 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
         }
 
         // Total de equipos encontrados para la búsqueda
-        $totalQuery = "SELECT COUNT(*) AS total FROM equipos WHERE placa LIKE '%$searchQuery%' 
-                       OR modelo LIKE '%$searchQuery%' 
-                       OR codigo LIKE '%$searchQuery%'"; 
+        $totalQuery = "SELECT COUNT(*) AS total FROM users WHERE username LIKE '%$searchQuery%' 
+                       OR email LIKE '%$searchQuery%'";
+                       
         $totalResult = $conn->query($totalQuery);
         $total = $totalResult->fetch_assoc()['total'];
 
@@ -52,7 +51,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     }
 } else {
     // Si no se recibe el parámetro de búsqueda, devuelve todos los resultados con paginación
-    $sql = "SELECT * FROM equipos LIMIT ? OFFSET ?";
+    $sql = "SELECT * FROM users LIMIT ? OFFSET ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $limit, $offset);
     $stmt->execute();
@@ -64,7 +63,7 @@ if (isset($_GET['q']) && !empty($_GET['q'])) {
     }
 
     // Total de equipos
-    $totalQuery = "SELECT COUNT(*) AS total FROM equipos";
+    $totalQuery = "SELECT COUNT(*) AS total FROM users";
     $totalResult = $conn->query($totalQuery);
     $total = $totalResult->fetch_assoc()['total'];
 
